@@ -2,3 +2,4 @@ flask
 pandas
 random
 warnings
+gunicorn
