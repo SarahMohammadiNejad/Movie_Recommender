@@ -6,8 +6,8 @@ from dataframes import read_movie_data
 from dataframes import find_very_popular_movies
 from dataframes import filter_popular_high_rate
 
-from scikit-learn.decomposition import NMF
-from scikit-learn.metrics.pairwise import cosine_similarity
+from sklearn.decomposition import NMF
+from sklearn.metrics.pairwise import cosine_similarity
 
 import warnings
 warnings.filterwarnings("ignore")
