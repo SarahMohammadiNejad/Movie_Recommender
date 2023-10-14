@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sumac movie recommender</title>
+    <link rel="stylesheet" href="/static/page_styling.css">
+</head>
+<body>
+    <h1>Welcome to My Movie Recommender</h1>
+    <br><br>
+    <!-- <img src="/static/star-wars.webp" width="100"> -->
+    <p>This application recommends movies to users! </p>
+    <p>Select your method! </p>
+    <form action="/recommender">
+        <select name="method">
+            <option>random</option>
+            <!-- <option>popular</option> -->
+            <option>nmf</option>
+            <option>cosine</option>
+        </select>
+        <br><br>
+
+        <p>Then  select the number of recomendations you like! </p>
+        <form action="/recommender">
+            <select name="numrec">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>10</option>
+            </select>
+            <br><br>
+        <br><br>
+        Forest Gump:
+        <input type="text" name="356" placeholder="0.0 - 5.0">
+        <br><br>
+        Shawshank Redemption:
+        <input type="text" name="318" placeholder="0.0 - 5.0">
+        <br><br>
+        Pulp Fiction:
+        <input type="text" name="296" placeholder="0.0 - 5.0">
+        <br><br>
+        Silence of the Lambs:
+        <input type="text" name="593" placeholder="0.0 - 5.0">
+        <br><br>
+        Matrix:
+        <input type="text" name="2571" placeholder="0.0 - 5.0">
+        <br><br>
+
+
+        Jurassic Park:
+        <input type="text" name="480" placeholder="0.0 - 5.0">
+        <br><br>
+        Braveheart:
+        <input type="text" name="110" placeholder="0.0 - 5.0">
+        <br><br>
+        Terminator 2: Judgment Day:
+        <input type="text" name="589" placeholder="0.0 - 5.0">
+        <br><br>
+        Schindler's List:
+        <input type="text" name="527" placeholder="0.0 - 5.0">
+        <br><br>
+        Fight Club:
+        <input type="text" name="2959" placeholder="0.0 - 5.0">
+        <br><br>
+        Toy Story:
+        <input type="text" name="1" placeholder="0.0 - 5.0">
+        <br><br>
+        Star Wars- Episode V - The Empire Strikes:
+        <input type="text" name="1196" placeholder="0.0 - 5.0">
+        <br><br>
+        American Beauty:
+        <input type="text" name="2858" placeholder="0.0 - 5.0">
+        <br><br>
+        Usual Suspects:
+        <input type="text" name="50" placeholder="0.0 - 5.0">
+        <br><br>
+        Seven:
+        <input type="text" name="47" placeholder="0.0 - 5.0">
+        <br><br>
+        Independence Day:
+        <input type="text" name="780" placeholder="0.0 - 5.0">
+        <br><br>
+        Apollo 13:
+        <input type="text" name="150" placeholder="0.0 - 5.0">
+        <br><br>
+
+        <!-- Dune:
+        <input type="text" name="2021" placeholder="0.0 - 5.0">
+        <br><br>
+        Inception:
+        <input type="text" name="79132" placeholder="0.0 - 5.0">
+        <br><br>
+        Edge of Tomorrow:
+        <input type="text" name="111759" placeholder="0.0 - 5.0">
+        <br><br>
+        Truman Show:
+        <input type="text" name="1682" placeholder="0.0 - 5.0">
+        <br><br>
+        Finding Nemo:
+        <input type="text" name="6377" placeholder="0.0 - 5.0">
+        <br><br>
+        Wonder:
+        <input type="text" name="180095" placeholder="0.0 - 5.0">
+        <br><br> -->
+
+        <!-- <br><br>
+        {% for pop in popular_movies%}
+        {{pop}}:
+        <input type="text" name=movie placeholder="0.0 - 5.0">
+        <br><br>
+        {% endfor %} -->
+
+        <input type="submit">
+        <!-- <button type="text">see recommendations</button> -->
+
+    </form>
+
+
+    <!-- <form>
+        <select> name="method"
+        <option>random</option>
+        <option>nmf</option>
+        <option>clustering</option>
+        <option>popular</option>
+        </select>
+        <br><br>
+        <input type="text" name="1" placeholder="1">
+        <input type="text" name="rating1" placeholder="0 - 5"><br><br>
+        <input type="text" name="2" placeholder="2">
+        <input type="text" name="rating2" placeholder="0 - 5"><br><br>
+        <input type="text" name="3" placeholder="3">
+        <input type="text" name="rating3" placeholder="0 - 5"><br><br>
+
+
+    </form> -->
+</body>
+</html>
