@@ -68,26 +68,12 @@ class MovieRecommendation:
             pop_df = pop_df.fillna(0)
 
 
-            # df, f_id, u_id= filter_popular_high_rate(df_ratings,best_min_rate_number,best_min_rate)
-            # # df.to_csv('ml-latest-small/top_movies.csv')
-
-            df = pd.read_csv('ml-latest-small/top_movies.csv', index_col='userId')
-            print(df)
-            # print(df.index)
-            # print(df.columns)
-
-            f_id = list(df.columns)
-            u_id = list(df.index)
-            df.rename(columns=lambda x: int(x), inplace=True)
-            df_new_user = pd.concat([df,pop_df], axis=0)
+            df, f_id, u_id= filter_popular_high_rate(df_ratings,best_min_rate_number,best_min_rate)
+            df_new_user = pd.concat([df,pop_df])
             df_new_user = df_new_user.fillna(0)
+            df.to_csv('ml-latest-small/top_movies.csv')
 
             u_id = u_id + [target_user]
-
-            
-            print('*****************')
-            print({column: type(column) for column in pop_df.columns})
-            print('*****************')
 
             if self.user_input["method"] == "nmf":
                 nmf = NMF(n_components = best_feature_num, init = 'nndsvda', max_iter = 300)
@@ -113,12 +99,6 @@ class MovieRecommendation:
                     
                 sorted = user_calculated_rate.sort_values(by = ['rate'], ascending=False)
                 sorted_head = sorted.head(self.k)
-                sorted_head['movieId'] = sorted_head['movieId'].astype(int)
-                print('1********')
-                print(df_movies.dtypes)
-                print('2********')
-                print(sorted_head.dtypes)
-                
                 NMF_sorted_head_merge = pd.merge(df_movies,sorted_head, on = ['movieId'])
                 result_NMF_max = NMF_sorted_head_merge.sort_values("rate", ascending = False)
                 print(result_NMF_max)
