@@ -91,18 +91,18 @@ class MovieRecommendation:
                 P = pd.DataFrame(nmf.transform(df_new_user), 
                                 columns = features_list, 
                                 index = u_id)
-                # recommendations_reconstructed = pd.DataFrame(np.dot(P, Q), 
-                #                                 index = u_id, 
-                #                                 columns = f_id)
-                # all_non_filtered_movies = list(recommendations_reconstructed.columns)
+                recommendations_reconstructed = pd.DataFrame(np.dot(P, Q), 
+                                                index = u_id, 
+                                                columns = f_id)
+                all_non_filtered_movies = list(recommendations_reconstructed.columns)
 
 
-                # user_unseen_movies = [i for i in all_non_filtered_movies if i not in seen_movies]
-                # user_calculated_rate = pd.DataFrame()
-                # for ii in user_unseen_movies:    
+                user_unseen_movies = [i for i in all_non_filtered_movies if i not in seen_movies]
+                user_calculated_rate = pd.DataFrame()
+                for ii in user_unseen_movies:    
 
-                #     rate=recommendations_reconstructed.loc[target_user,ii]
-                #     user_calculated_rate = user_calculated_rate._append({'movieId':ii, 'rate':rate},ignore_index=True)
+                    rate=recommendations_reconstructed.loc[target_user,ii]
+                    user_calculated_rate = user_calculated_rate._append({'movieId':ii, 'rate':rate},ignore_index=True)
                     
                 # sorted = user_calculated_rate.sort_values(by = ['rate'], ascending=False)
                 # sorted_head = sorted.head(self.k)
