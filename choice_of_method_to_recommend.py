@@ -27,31 +27,23 @@ class MovieRecommendation:
     
     def recommend_movie(self):
         if self.user_input["method"] == "random":
-
             random.shuffle(all_movies)
             return all_movies[:self.k]
-            # recomend = recommend_random(k = self.k)
-            # return recomend
-            # # return MOVIES[:self.k]
         # --------------------------------------------------
         else:
 
             best_feature_num = 10 
-            best_min_rate_number = 150
-            best_min_rate = 2
-            # best_feature_num = 2 
             # best_min_rate_number = 150
-            # best_min_rate = 4
+            # best_min_rate = 2
 
             features_list = []
             for i in range(best_feature_num):
                 features_list.append(f'feature{i}')
             
-            pop_id_int = [356, 318, 296, 593, 2571, 480, 110, 589, 527, 2959, 1, 1196, 2858, 50, 47, 780, 150]
 
+            pop_id_int = [356, 318, 296, 593, 2571, 480, 110, 589, 527, 2959, 1, 1196, 2858, 50, 47, 780, 150]
             pop_dict = {}
             for i in pop_id_int:
-
                 pop_dict[i] = self.user_input[str(i)]
 
 
@@ -64,7 +56,6 @@ class MovieRecommendation:
 
             target_user = 99999 #'new_user'
             pop_df = pd.DataFrame(pop_dict,columns = pop_id_int, index = [target_user])
-            
             pop_df = pop_df.fillna(0)
 
 
@@ -72,7 +63,6 @@ class MovieRecommendation:
             # # df.to_csv('ml-latest-small/top_movies.csv')
 
             df = pd.read_csv('ml-latest-small/top_movies.csv', index_col='userId')
-            print(df)
 
 
             f_id = list(df.columns)
@@ -84,9 +74,13 @@ class MovieRecommendation:
             u_id = u_id + [target_user]
 
             
-            print('*****************')
-            print({column: type(column) for column in pop_df.columns})
-            print('*****************')
+            # print('*****************')
+            # # print({column: type(column) for column in pop_df.columns})
+            # print(df.shape)
+            # print(pop_df.shape)
+            # print(df_new_user.shape)
+
+            # print('*****************')
 
             if self.user_input["method"] == "nmf":
                 nmf = NMF(n_components = best_feature_num, init = 'nndsvda', max_iter = 300)
@@ -97,29 +91,29 @@ class MovieRecommendation:
                 P = pd.DataFrame(nmf.transform(df_new_user), 
                                 columns = features_list, 
                                 index = u_id)
-                recommendations_reconstructed = pd.DataFrame(np.dot(P, Q), 
-                                                index = u_id, 
-                                                columns = f_id)
-                all_non_filtered_movies = list(recommendations_reconstructed.columns)
+                # recommendations_reconstructed = pd.DataFrame(np.dot(P, Q), 
+                #                                 index = u_id, 
+                #                                 columns = f_id)
+                # all_non_filtered_movies = list(recommendations_reconstructed.columns)
 
 
-                user_unseen_movies = [i for i in all_non_filtered_movies if i not in seen_movies]
-                user_calculated_rate = pd.DataFrame()
-                for ii in user_unseen_movies:    
+                # user_unseen_movies = [i for i in all_non_filtered_movies if i not in seen_movies]
+                # user_calculated_rate = pd.DataFrame()
+                # for ii in user_unseen_movies:    
 
-                    rate=recommendations_reconstructed.loc[target_user,ii]
-                    user_calculated_rate = user_calculated_rate._append({'movieId':ii, 'rate':rate},ignore_index=True)
+                #     rate=recommendations_reconstructed.loc[target_user,ii]
+                #     user_calculated_rate = user_calculated_rate._append({'movieId':ii, 'rate':rate},ignore_index=True)
                     
-                sorted = user_calculated_rate.sort_values(by = ['rate'], ascending=False)
-                sorted_head = sorted.head(self.k)
-                sorted_head['movieId'] = sorted_head['movieId'].astype(int)
+                # sorted = user_calculated_rate.sort_values(by = ['rate'], ascending=False)
+                # sorted_head = sorted.head(self.k)
+                # sorted_head['movieId'] = sorted_head['movieId'].astype(int)
 
                 
-                NMF_sorted_head_merge = pd.merge(df_movies,sorted_head, on = ['movieId'])
-                result_NMF_max = NMF_sorted_head_merge.sort_values("rate", ascending = False)
-                print(result_NMF_max)
+                # NMF_sorted_head_merge = pd.merge(df_movies,sorted_head, on = ['movieId'])
+                # result_NMF_max = NMF_sorted_head_merge.sort_values("rate", ascending = False)
                 # --------------    
-                return result_NMF_max['title']
+                # return result_NMF_max['title']
+                return f'test'
             
             # /////////////////////////////////////////////////////
             # /////////////////////////////////////////////////////
