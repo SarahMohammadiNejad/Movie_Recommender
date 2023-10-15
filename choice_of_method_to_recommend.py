@@ -33,8 +33,8 @@ class MovieRecommendation:
         else:
 
             best_feature_num = 10 
-            # best_min_rate_number = 150
-            # best_min_rate = 2
+            best_min_rate_number = 150
+            best_min_rate = 2
 
             features_list = []
             for i in range(best_feature_num):
@@ -59,15 +59,14 @@ class MovieRecommendation:
             pop_df = pop_df.fillna(0)
 
 
-            # df, f_id, u_id= filter_popular_high_rate(df_ratings,best_min_rate_number,best_min_rate)
+            df, f_id, u_id= filter_popular_high_rate(df_ratings,best_min_rate_number,best_min_rate)
             # # df.to_csv('ml-latest-small/top_movies.csv')
 
-            df = pd.read_csv('ml-latest-small/top_movies.csv', index_col='userId')
+            # df = pd.read_csv('ml-latest-small/top_movies.csv', index_col='userId')
+            # f_id = list(df.columns)
+            # u_id = list(df.index)
+            # df.rename(columns=lambda x: int(x), inplace=True)
 
-
-            f_id = list(df.columns)
-            u_id = list(df.index)
-            df.rename(columns=lambda x: int(x), inplace=True)
             df_new_user = pd.concat([df,pop_df], axis=0)
             df_new_user = df_new_user.fillna(0)
 
@@ -113,7 +112,7 @@ class MovieRecommendation:
                 result_NMF_max = NMF_sorted_head_merge.sort_values("rate", ascending = False)
                 # --------------    
                 return result_NMF_max['title']
-                # return f'test'
+                # return user_unseen_movies
             
             # /////////////////////////////////////////////////////
             # /////////////////////////////////////////////////////
