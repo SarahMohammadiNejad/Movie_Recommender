@@ -105,7 +105,7 @@ class MovieRecommendation:
                     
                 sorted = user_calculated_rate.sort_values(by = ['rate'], ascending=False)
                 sorted_head = sorted.head(self.k)
-                sorted_head['movieId'] = sorted_head['movieId'].astype(int)
+                # sorted_head['movieId'] = sorted_head['movieId'].astype(int)
 
                 
                 NMF_sorted_head_merge = pd.merge(df_movies,sorted_head, on = ['movieId'])
@@ -127,18 +127,13 @@ class MovieRecommendation:
 
                 neighbors = list(cosine_tab[target_user].sort_values(ascending = False).index[1:10])
                 neighbors
-                print(neighbors)
 
             predicted_ratings_movies = []
-            rating_T = df_new_user.T
-
-            # print('***********')   
-            # print(rating)            
+            rating_T = df_new_user.T          
 
             # for movie in unseen_movies:
             for movie in user_unseen_movies:
                 # list people who watched the unseen movies
-                # print(movie)
                 others = list(rating_T.columns[rating_T.loc[movie] > 0])
                 numerator = 0
                 denominator = 0.000001
@@ -146,20 +141,14 @@ class MovieRecommendation:
                 for user in neighbors:
                     if user in others:
 
-                        # print(movie)
-                        #ext    ract the ratings and similarities for similar users
                         rating = rating_T.loc[movie, user]
-                        # print(rating)
                         similarity = cosine_tab.loc[target_user, user]
                         print(similarity)
                         numerator = numerator + rating * similarity
                         denominator = denominator + similarity
-                        # print(f'{user}  {movie}  {rating}  {numerator}   {denominator}')
 
                 predicted_ratings = round(numerator / denominator, 1)
-                # print(predicted_ratings)
                 predicted_ratings_movies.append([predicted_ratings, movie])
-                # print('End')
 
                 predicted_rating_df = pd.DataFrame(predicted_ratings_movies, columns = ["rating", "movieId"])
                 sorted_cosine = predicted_rating_df.sort_values("rating", ascending = False)
