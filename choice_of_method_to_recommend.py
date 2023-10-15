@@ -104,16 +104,16 @@ class MovieRecommendation:
                     rate=recommendations_reconstructed.loc[target_user,ii]
                     user_calculated_rate = user_calculated_rate.append({'movieId':ii, 'rate':rate},ignore_index=True)
                     
-                # sorted = user_calculated_rate.sort_values(by = ['rate'], ascending=False)
-                # sorted_head = sorted.head(self.k)
-                # sorted_head['movieId'] = sorted_head['movieId'].astype(int)
+                sorted = user_calculated_rate.sort_values(by = ['rate'], ascending=False)
+                sorted_head = sorted.head(self.k)
+                sorted_head['movieId'] = sorted_head['movieId'].astype(int)
 
                 
-                # NMF_sorted_head_merge = pd.merge(df_movies,sorted_head, on = ['movieId'])
-                # result_NMF_max = NMF_sorted_head_merge.sort_values("rate", ascending = False)
+                NMF_sorted_head_merge = pd.merge(df_movies,sorted_head, on = ['movieId'])
+                result_NMF_max = NMF_sorted_head_merge.sort_values("rate", ascending = False)
                 # --------------    
-                # return result_NMF_max['title']
-                return f'test'
+                return result_NMF_max['title']
+                # return f'test'
             
             # /////////////////////////////////////////////////////
             # /////////////////////////////////////////////////////
