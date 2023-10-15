@@ -101,7 +101,9 @@ class MovieRecommendation:
                 for ii in user_unseen_movies:    
 
                     rate=recommendations_reconstructed.loc[target_user,ii]
-                    user_calculated_rate = user_calculated_rate.append({'movieId':ii, 'rate':rate},ignore_index=True)
+                    line_df = pd.DataFrame({'movieId':ii, 'rate':rate})
+                    user_calculated_rate = pd.concat([user_calculated_rate,line_df])
+                    # user_calculated_rate = user_calculated_rate.append({'movieId':ii, 'rate':rate},ignore_index=True)
                     
                 sorted = user_calculated_rate.sort_values(by = ['rate'], ascending=False)
                 sorted_head = sorted.head(self.k)
