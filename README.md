@@ -2,6 +2,8 @@
 This application is meant to recommend movies to users on a browser:
 https://sarah-movierecommender.onrender.com
 
+it can also been run using python application.py
+
 
 We create a flask application that ask the user to enter her/his scores for the 20 most famous movies (can also scoring to the unseen movies). It also needs some information from user. 
 1- The number of movies user wants as recommendation.  
