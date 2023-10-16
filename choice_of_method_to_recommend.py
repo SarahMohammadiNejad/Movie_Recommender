@@ -32,7 +32,7 @@ class MovieRecommendation:
         # --------------------------------------------------
         else:
 
-            best_feature_num = 10 
+            best_feature_num = 42 
             best_min_rate_number = 150
             best_min_rate = 2
 
@@ -71,6 +71,7 @@ class MovieRecommendation:
             df_new_user = df_new_user.fillna(0)
 
             u_id = u_id + [target_user]
+            user_unseen_movies = [i for i in f_id if i not in seen_movies]
 
             
             # print('*****************')
@@ -93,10 +94,9 @@ class MovieRecommendation:
                 recommendations_reconstructed = pd.DataFrame(np.dot(P, Q), 
                                                 index = u_id, 
                                                 columns = f_id)
-                all_non_filtered_movies = list(recommendations_reconstructed.columns)
+                # all_non_filtered_movies = list(recommendations_reconstructed.columns)
 
 
-                user_unseen_movies = [i for i in all_non_filtered_movies if i not in seen_movies]
                 user_calculated_rate = pd.DataFrame()
                 # movieID_list = []
                 for ii in user_unseen_movies:    
@@ -124,12 +124,17 @@ class MovieRecommendation:
 
             if self.user_input["method"] == "cosine":
                 # df, u, f = filter_popular_high_rate(df_ratings,best_min_rate_number,best_min_rate)
+                # print(cosine_similarity(df_new_user).shape)
+                # print(len(u_id))
+                # print(len(f_id))
                 cosine_tab = pd.DataFrame(cosine_similarity(df_new_user), 
                                                 index = u_id, 
-                                                columns = f_id)
-
+                                                columns = u_id)
+                # print(cosine_tab[target_user])
                 neighbors = list(cosine_tab[target_user].sort_values(ascending = False).index[1:10])
-                neighbors
+                # neighbors = list(cosine_tab[target_user])#.index[1:10])
+
+                # print(neighbors)
 
             predicted_ratings_movies = []
             rating_T = df_new_user.T          
@@ -146,21 +151,23 @@ class MovieRecommendation:
 
                         rating = rating_T.loc[movie, user]
                         similarity = cosine_tab.loc[target_user, user]
-                        print(similarity)
+                        # print(similarity)
                         numerator = numerator + rating * similarity
                         denominator = denominator + similarity
 
                 predicted_ratings = round(numerator / denominator, 1)
                 predicted_ratings_movies.append([predicted_ratings, movie])
 
-                predicted_rating_df = pd.DataFrame(predicted_ratings_movies, columns = ["rating", "movieId"])
-                sorted_cosine = predicted_rating_df.sort_values("rating", ascending = False)
-                sorted_cosine_head = sorted_cosine.head(10)
-                cosine_sorted_head_merge = pd.merge(df_movies,sorted_cosine_head, on = ['movieId'])
-                result_cosine_max = cosine_sorted_head_merge.sort_values("rating", ascending = False)
-                print(result_cosine_max)
-                print('?????????????/////////////')
-                return result_cosine_max['title']
+            predicted_rating_df = pd.DataFrame(predicted_ratings_movies, columns = ["rating", "movieId"])
+            sorted_cosine = predicted_rating_df.sort_values("rating", ascending = False)
+            sorted_cosine_head = sorted_cosine.head(self.k)
+            cosine_sorted_head_merge = pd.merge(df_movies,sorted_cosine_head, on = ['movieId'])
+            result_cosine_max = cosine_sorted_head_merge.sort_values("rating", ascending = False)
+            print(result_cosine_max)
+            # print(neighbors)
+            print('?????????????/////////////')
+            # print(others)
+            return result_cosine_max['title']
 
 if __name__ == "__main__":
     print('********')
