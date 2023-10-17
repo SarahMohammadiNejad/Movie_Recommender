@@ -6,7 +6,7 @@ if in any case this deployed version won't work, you can run it localy using:
 
 python application.py
 
-
+### What this application does
 We create a flask application that ask the user to enter her/his scores for the 20 most famous movies (can also scoring to the unseen movies). It also needs some information from user. 
 1- The number of movies user wants as recommendation.  
 2- The method to find the movies which so far random, NMF, and cosine similarity are implemented. 
