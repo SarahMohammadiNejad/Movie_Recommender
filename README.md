@@ -1,5 +1,5 @@
 # Movie-recommender
-This application is meant to recommend movies to users on a browser:
+This application recommends movies to you based on the scores you give to the first top 17 movies! You can run it on
 https://sarah-movierecommender.onrender.com
 
 if in any case this deployed version won't work, you can run it localy using:
