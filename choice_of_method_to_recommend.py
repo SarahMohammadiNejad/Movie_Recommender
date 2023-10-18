@@ -24,17 +24,27 @@ class MovieRecommendation:
     def __init__(self, user_input, k=5):
         self.user_input = user_input
         self.k = int(user_input["numrec"])
-    
+
     def recommend_movie(self):
+        best_feature_num = 42 
+        best_min_rate_number = 150
+        best_min_rate = 2
+        df, f_id, u_id= filter_popular_high_rate(df_ratings,best_min_rate_number,best_min_rate)
+
         if self.user_input["method"] == "random":
             random.shuffle(all_movies)
-            return all_movies[:self.k]
+            list_fid_first_k = all_movies[:self.k]
+            df_selected = pd.DataFrame()
+            
+            df_selected = df_movies[df_movies['movieId'].isin(list_fid_first_k)]
+
+            return df_selected['title'] #temp
         # --------------------------------------------------
         else:
 
-            best_feature_num = 42 
-            best_min_rate_number = 150
-            best_min_rate = 2
+            # best_feature_num = 42 
+            # best_min_rate_number = 150
+            # best_min_rate = 2
 
             features_list = []
             for i in range(best_feature_num):
@@ -58,8 +68,8 @@ class MovieRecommendation:
             pop_df = pd.DataFrame(pop_dict,columns = pop_id_int, index = [target_user])
             pop_df = pop_df.fillna(0)
 
+            # df, f_id, u_id= filter_popular_high_rate(df_ratings,best_min_rate_number,best_min_rate)
 
-            df, f_id, u_id= filter_popular_high_rate(df_ratings,best_min_rate_number,best_min_rate)
             # # df.to_csv('ml-latest-small/top_movies.csv')
 
             # df = pd.read_csv('ml-latest-small/top_movies.csv', index_col='userId')

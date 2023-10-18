@@ -10,9 +10,9 @@ body {
 select {
     font-family: arial;
     font-weight: bolder;
-    /* color: green; */
+    /*color: green; */
     /* background-color: black; */
-    font-size: 100%;
+    font-size: 150%;
 }
 
 select:hover {

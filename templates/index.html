@@ -10,18 +10,17 @@
     <h1>Welcome to My Movie Recommender</h1>
     <br><br>
     <!-- <img src="/static/star-wars.webp" width="100"> -->
-    <p>This application recommends movies to users! </p>
-    <p>Select your method! </p>
+    <p>This application recommends movies to you based on the scores you give to the 17 first top movies. It uses MovieLens dataset: in which 610 users gave score to 193609 movies and from this dataset it recommends movies. So far we implemented 3 methods: random, NMF (Non-negative matrix factorization), Cosine Similarity.  </p>
+    <p> Select which method you like: </p>
     <form action="/recommender">
         <select name="method">
             <option>random</option>
-            <!-- <option>popular</option> -->
             <option>nmf</option>
             <option>cosine</option>
         </select>
         <br><br>
 
-        <p>Then  select the number of recomendations you like! </p>
+        <p>Select how many movies you like to be recommended! </p>
         <form action="/recommender">
             <select name="numrec">
                 <option>1</option>
